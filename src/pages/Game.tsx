@@ -15,6 +15,7 @@ import Timer from "../ui/Timer";
 import { AppDispatch, RootState } from "../redux/store";
 import { device } from "../breakpoints";
 import "../ui/IconsStyling.css";
+import { AnswerType } from "../redux/slices/quizSlice.ts";
 
 import ProgressBarComponent from "../ui/ProgressBar";
 
@@ -298,7 +299,7 @@ function Game() {
 
   const questions = useSelector((state: RootState) => state.quiz.questions);
   const isLoading = useSelector((state: RootState) => state.quiz.isLoading);
-  const answers = useSelector((state: RootState) => state.quiz.answers);
+  const answers: AnswerType[][] = useSelector((state: RootState) => state.quiz.answers);
   const currentQuestion = useSelector(
     (state: RootState) => state.quiz.currentQuestion
   );
@@ -316,7 +317,7 @@ function Game() {
     }
   }, [category, difficulty, dispatch]);
 
-  function handleAnswerClick(answer: object) {
+  function handleAnswerClick(answer: AnswerType) {
     setIsSubmited(true);
     dispatch(submitQuestion(answer));
   }
